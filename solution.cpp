@@ -17,7 +17,8 @@ using namespace std;
   - build a trie tree from the words
   - exhaust all the possible paths (DFS) starting
     for every location on the board. Check if
-    a given path is in the Trie tree
+    a given path is in the trie tree
+  - time complexity O(sum(m*n*4^l))
 */
 
 vector<string> Solution::findWords(vector<vector<char>> &board,
@@ -26,7 +27,7 @@ vector<string> Solution::findWords(vector<vector<char>> &board,
   /* build the trie tree */
   auto trie = new Node();
 
-  /* */
+  /* build the trie tree */
   for (auto w : words)
   {
     auto p = trie;
@@ -84,6 +85,8 @@ void Solution::_search(
   _search(x - 1, y, next, board, result);
   _search(x + 1, y, next, board, result);
 
-  /* restore it */
+  /* restore it as we need to roll back everything
+     before visiting the next location on the board
+  */
   board[y][x] = c;
 }
